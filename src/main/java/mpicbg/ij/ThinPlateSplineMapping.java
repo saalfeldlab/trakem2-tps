@@ -8,6 +8,23 @@ import ij.process.ImageProcessor;
 
 public class ThinPlateSplineMapping {
 	
+	KernelTransformFloat xfm; 
+	public ThinPlateSplineMapping( KernelTransformFloat xfm ){
+		this.xfm = xfm;
+	}
+	
+	public KernelTransformFloat getTransform(){
+		return xfm;
+	}
+	
+	public void map(ImageProcessor source, ImageProcessor target) {
+		ThinPlateSplineMapping.mapInterval(xfm, source, target);
+	}
+
+	public void mapInterpolated(ImageProcessor source, ImageProcessor target) {
+		System.out.println("mapping interpolated");
+		ThinPlateSplineMapping.mapInterval(xfm, source, target);
+	}
 	
 	final static public void mapInterval(
 			final KernelTransformFloat 	xfm,
@@ -62,11 +79,5 @@ public class ThinPlateSplineMapping {
 		
 	}
 
-	public static void face(){
-		MapThinPlateSplineInterpolatedThread t =
-				new MapThinPlateSplineInterpolatedThread (
-						new AtomicInteger());
-	}
-	
 
 }
