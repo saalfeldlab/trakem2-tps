@@ -32,61 +32,55 @@ public class ThinPlateSplineTransform implements CoordinateTransform {
 	public void init(String data) throws NumberFormatException {
 		
 		final String[] fields = data.split( "\\s+" );
-		
-		int i = 0;
-      String className = fields[i++];
 
-      System.out.println(" class: " + className );
+		int i = 0;
 
 		int ndims = Integer.parseInt(fields[i++]);
 		int nLm   = Integer.parseInt(fields[i++]);
-		
-		System.out.println("ndims: " + ndims);
-		System.out.println("nLm: " + nLm);
 
 
-      float[][] aMtx = null;
-      float[] bVec = null;
-      if( fields[i].equals( "null") && fields[i+1].equals( "null" ) ) {
-		   System.out.println(" No affines " );
-         i+=2;
-      }else{
-         aMtx = new float[ndims][ndims];
-         bVec = new float[ndims];
+		float[][] aMtx = null;
+		float[] bVec = null;
+		if( fields[i].equals( "null" ) && fields[i+1].equals( "null" ) ) {
+			//System.out.println(" No affines " );
+			i+=2;
+		}else{
+			aMtx = new float[ndims][ndims];
+			bVec = new float[ndims];
 
-         for(int k=0; k<ndims; k++)for(int j=0; j<ndims; j++){
-            aMtx[k][j] = Float.parseFloat( fields[i++] );
-         }
-         for(int j=0; j<ndims; j++){
-            bVec[j] = Float.parseFloat( fields[i++] );
-         }
-      }
+			for(int k=0; k<ndims; k++)for(int j=0; j<ndims; j++){
+				aMtx[k][j] = Float.parseFloat( fields[i++] );
+			}
+			for(int j=0; j<ndims; j++){
+				bVec[j] = Float.parseFloat( fields[i++] );
+			}
+		}
 
-      // parse control points
-      float[][] srcPts = new float[ndims][nLm];
+		// parse control points
+		float[][] srcPts = new float[ndims][nLm];
 		for( int l=0; l<nLm; l++ ) for( int d = 0; d<ndims; d++ ) 
-      {
-         srcPts[d][l] = Float.parseFloat( fields[i++] ); 
-      }
+		{
+			srcPts[d][l] = Float.parseFloat( fields[i++] ); 
+		}
 
-      // parse control point coordinates
-      int n = 0;
-      double[] dMtxDat = new double[nLm * ndims];
+		// parse control point coordinates
+		int n = 0;
+		double[] dMtxDat = new double[nLm * ndims];
 		for( int l=0; l<nLm; l++ ) for( int d = 0; d<ndims; d++ ) 
-      {
-         dMtxDat[n++] = Double.parseDouble( fields[i++] );
-      }
+		{
+			dMtxDat[n++] = Double.parseDouble( fields[i++] );
+		}
 
-      tps = new ThinPlateR2LogRSplineKernelTransformFloat( srcPts, aMtx, bVec, dMtxDat );
+		tps = new ThinPlateR2LogRSplineKernelTransformFloat( srcPts, aMtx, bVec, dMtxDat );
 		
 	}
 
 	public String toXML(String indent) {
 		final StringBuilder xml = new StringBuilder( );
 		xml.append( indent )
-		   .append( "<ict_transform class=\"" )
-		   .append( this.getClass().getCanonicalName() )
-		   .append( "\" data=\"" );
+			.append( "<ict_transform class=\"" )
+            .append( this.getClass().getCanonicalName() )
+            .append( "\" data=\"" );
 		toDataString( xml );
 		return xml.append( "\"/>" ).toString();
 	}
@@ -98,10 +92,7 @@ public class ThinPlateSplineTransform implements CoordinateTransform {
 	}
 
 	public CoordinateTransform copy() {
-		
-		return new ThinPlateSplineTransform(
-				tps
-				);
+		return new ThinPlateSplineTransform( tps );
 	}
 	
 	private final void toDataString( final StringBuilder data)
@@ -148,9 +139,6 @@ public class ThinPlateSplineTransform implements CoordinateTransform {
 		}
 		
 	}
-	
-	public String toString(){
-		return "whatsWrong-aYourFace-a";
-	}
 
+	
 }
