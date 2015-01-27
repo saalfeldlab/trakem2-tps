@@ -2,11 +2,10 @@ import ij.gui.*;
 import mpicbg.ij.InteractiveMapping;
 import mpicbg.ij.TransformMeshMapping;
 import mpicbg.models.*;
-import mpicbg.models.TransformMesh;
 
 import java.awt.Color;
 
-import jitk.spline.ThinPlateR2LogRSplineKernelTransformFloat;
+import jitk.spline.ThinPlateR2LogRSplineKernelTransform;
 
 /**
  * Smooth image deformation using landmark based deformation by means
@@ -38,7 +37,7 @@ public class Transform_ThinPlateSpline extends InteractiveMapping
 	private static float alpha = 1.0f;
 	
 	protected TransformMesh mesh;
-	protected ThinPlateR2LogRSplineKernelTransformFloat tps;
+	protected ThinPlateR2LogRSplineKernelTransform tps;
 	
 	@Override
 	final protected void createMapping()
@@ -103,7 +102,7 @@ public class Transform_ThinPlateSpline extends InteractiveMapping
 		
 		showPreview = gd.getNextBoolean();
 		
-		tps = new ThinPlateR2LogRSplineKernelTransformFloat( 2 );
+		tps = new ThinPlateR2LogRSplineKernelTransform( 2 );
 		
 		mesh = new TransformMesh( numX, imp.getWidth(), imp.getHeight() );
 

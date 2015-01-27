@@ -8,7 +8,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import jitk.spline.ThinPlateR2LogRSplineKernelTransformFloat;
+import jitk.spline.ThinPlateR2LogRSplineKernelTransform;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -176,10 +177,10 @@ public class RunTpsMapping {
 		logger.debug("Fitting thin-plate-spline.");
 		
 
-		ThinPlateR2LogRSplineKernelTransformFloat tps = 
-				new ThinPlateR2LogRSplineKernelTransformFloat( ndims, dstPts, srcPts  );
+		ThinPlateR2LogRSplineKernelTransform tps = 
+				new ThinPlateR2LogRSplineKernelTransform( ndims, dstPts, srcPts  );
 
-		tps.computeW();
+		tps.solve();
 		
 		
 		ThinPlateSplineMapping tpsMap = new ThinPlateSplineMapping( tps );

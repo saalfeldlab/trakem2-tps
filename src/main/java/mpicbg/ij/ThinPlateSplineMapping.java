@@ -2,18 +2,17 @@ package mpicbg.ij;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import jitk.spline.KernelTransformFloat;
-import jitk.spline.KernelTransformFloatSeparable;
+import jitk.spline.ThinPlateR2LogRSplineKernelTransform;
 import ij.process.ImageProcessor;
 
 public class ThinPlateSplineMapping {
 	
-	KernelTransformFloat xfm; 
-	public ThinPlateSplineMapping( KernelTransformFloat xfm ){
+	ThinPlateR2LogRSplineKernelTransform xfm; 
+	public ThinPlateSplineMapping( ThinPlateR2LogRSplineKernelTransform xfm ){
 		this.xfm = xfm;
 	}
 	
-	public KernelTransformFloat getTransform(){
+	public ThinPlateR2LogRSplineKernelTransform getTransform(){
 		return xfm;
 	}
 	
@@ -27,7 +26,7 @@ public class ThinPlateSplineMapping {
 	}
 	
 	final static public void mapInterval(
-			final KernelTransformFloat 	xfm,
+			final ThinPlateR2LogRSplineKernelTransform 	xfm,
 			final ImageProcessor 		src,
 			final ImageProcessor 		tgt )
 	{
@@ -36,28 +35,11 @@ public class ThinPlateSplineMapping {
 		
 		for(int x=0; x<w; x++)for(int y=0; y<h; y++)
 		{
-			float[] srcPt  = xfm.transformPoint( new float[]{x, y});
+			float[] srcPt  = xfm.apply( new float[]{x, y});
 			tgt.putPixel( x, y, 
 					src.getPixelInterpolated( srcPt[0], srcPt[1] ));
 		}		
 	}
-	
-	final static public void mapInterval(
-			final KernelTransformFloatSeparable 	xfm,
-			final ImageProcessor 		src,
-			final ImageProcessor 		tgt )
-	{
-		final int w = tgt.getWidth()  - 1;
-		final int h = tgt.getHeight() - 1;
-		
-		for(int x=0; x<w; x++)for(int y=0; y<h; y++)
-		{
-			float[] srcPt  = xfm.transformPoint( new float[]{x, y});
-			tgt.putPixel( x, y, 
-					src.getPixelInterpolated( srcPt[0], srcPt[1] ));
-		}		
-	}
-	
 	
 	// TODO mess around with this...
 	final static private class MapThinPlateSplineInterpolatedThread extends Thread
