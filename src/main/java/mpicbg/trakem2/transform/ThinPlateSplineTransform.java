@@ -1,7 +1,5 @@
 package mpicbg.trakem2.transform;
 
-import ij.IJ;
-
 import java.util.Arrays;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
@@ -100,8 +98,6 @@ public class ThinPlateSplineTransform implements CoordinateTransform {
 		final String[] fields = data.split("\\s+");
 
 		int i = 0;
-
-		IJ.log(fields[ i ]);
 
 		final int ndims = Integer.parseInt(fields[++i]);
 		final int nLm = Integer.parseInt(fields[++i]);
