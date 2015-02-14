@@ -11,6 +11,8 @@ import org.apache.commons.codec.binary.Base64;
 
 public class ThinPlateSplineTransform implements CoordinateTransform {
 
+	private static final long serialVersionUID = 2214564089916179653L;
+
 	private ThinPlateR2LogRSplineKernelTransform tps;
 
 	public ThinPlateSplineTransform() {
@@ -75,19 +77,15 @@ public class ThinPlateSplineTransform implements CoordinateTransform {
 	}
 
 	@Override
-	public float[] apply(final float[] location) {
+	public double[] apply(final double[] location) {
 
-		final float[] out = new float[location.length];
-		for (int i = 0; i < location.length; i++) {
-			out[i] = location[i];
-		}
-
+		final double[] out = location.clone();
 		applyInPlace(out);
 		return out;
 	}
 
 	@Override
-	public void applyInPlace(final float[] location) {
+	public void applyInPlace(final double[] location) {
 
 		tps.applyInPlace(location);
 	}

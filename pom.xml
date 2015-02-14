@@ -10,13 +10,13 @@
 
 
 	<artifactId>trakem2_tps</artifactId>
-	<version>1.0.1</version>
+	<version>1.1.0</version>
 
 	<dependencies>
 		<dependency>
 			<groupId>jitk</groupId>
 			<artifactId>jitk-tps</artifactId>
-			<version>1.0.0</version>
+			<version>1.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -30,11 +30,12 @@
 		<dependency>
 			<groupId>mpicbg</groupId>
 			<artifactId>mpicbg</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>sc.fiji</groupId>
 			<artifactId>mpicbg-trakem2</artifactId>
-			<version>1.0.3</version>
+			<version>1.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
