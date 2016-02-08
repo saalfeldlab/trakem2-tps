@@ -41,8 +41,12 @@ public class Transform_ThinPlateSpline extends InteractiveMapping
 	 */
 	private static double alpha = 1.0;
 
+	final int nD = 2;
+
 	protected TransformMesh mesh;
 	protected ThinPlateR2LogRSplineKernelTransform tps;
+	protected double[][] sourceLandmarks;
+	protected double[][] targetLandmarks;
 
 	@Override
 	final protected void createMapping()
@@ -53,7 +57,7 @@ public class Transform_ThinPlateSpline extends InteractiveMapping
 	@Override
 	final protected void updateMapping() throws NotEnoughDataPointsException, IllDefinedDataPointsException
 	{
-		tps.solve();
+		tps = new ThinPlateR2LogRSplineKernelTransform( nD, sourceLandmarks, targetLandmarks  );
 		mesh.init( tps );
 		updateIllustration();
 	}
@@ -73,7 +77,30 @@ public class Transform_ThinPlateSpline extends InteractiveMapping
 				here.apply( mesh );
 				m.add( new PointMatch( there, here, 10f ));
 
-				tps.addMatch( here.getW(), there.getL());
+				int nL = 0;
+				if( sourceLandmarks != null && sourceLandmarks.length > 0 )
+					nL = sourceLandmarks[0].length;
+
+				double[][] newsrc = new double[ tps.getNumDims() ][ nL + 1 ];
+				double[][] newtgt = new double[ tps.getNumDims() ][ nL + 1 ];
+
+				for( int j = 0; j < nD; j++ )
+				{
+					for( int i = 0; i < nL; i++ )
+					{
+						newsrc[ j ][ i ] = sourceLandmarks[ j ][ i ];
+						newtgt[ j ][ i ] = targetLandmarks[ j ][ i ];
+					}
+				}
+
+				newtgt[ 0 ][ nL ] = x;
+				newtgt[ 1 ][ nL ] = y;
+
+				newsrc[ 0 ][ nL ] = x;
+				newsrc[ 1 ][ nL ] = y; 
+
+				sourceLandmarks = newsrc;
+				targetLandmarks = newtgt;
 			}
 			catch ( final NoninvertibleModelException e ){ e.printStackTrace(); }
 		}
@@ -82,12 +109,32 @@ public class Transform_ThinPlateSpline extends InteractiveMapping
 	@Override
 	final protected void updateHandles( final int x, final int y )
 	{
-		final double[] l = hooks.get( targetIndex ).getW();
+		int nL = 0;
+		if( sourceLandmarks != null && sourceLandmarks.length > 0 )
+			nL = sourceLandmarks[0].length;
 
-		l[ 0 ] = x;
-		l[ 1 ] = y;
+		double[][] newsrc = new double[ tps.getNumDims() ][ nL ];
+		double[][] newtgt = new double[ tps.getNumDims() ][ nL ];
 
-		tps.updateTargetLandmark( targetIndex, l );
+		for( int j = 0; j < nD; j++ )
+		{
+			for( int i = 0; i < nL; i++ )
+			{
+				newsrc[ j ][ i ] = sourceLandmarks[ j ][ i ];
+
+				if( i == targetIndex )
+					continue;
+				else
+					newtgt[ j ][ i ] = targetLandmarks[ j ][ i ];
+			}
+		}
+
+		// update the last added point
+		newtgt[ 0 ][ targetIndex ] = x;
+		newtgt[ 1 ][ targetIndex ] = y;
+
+		sourceLandmarks = newsrc;
+		targetLandmarks = newtgt;
 	}
 
 	@Override
@@ -107,7 +154,7 @@ public class Transform_ThinPlateSpline extends InteractiveMapping
 
 		showPreview = gd.getNextBoolean();
 
-		tps = new ThinPlateR2LogRSplineKernelTransform( 2 );
+		tps = new ThinPlateR2LogRSplineKernelTransform( nD );
 
 		mesh = new TransformMesh( numX, imp.getWidth(), imp.getHeight() );
 
