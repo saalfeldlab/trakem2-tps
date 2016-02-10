@@ -179,8 +179,6 @@ public class RunTpsMapping {
 
 		ThinPlateR2LogRSplineKernelTransform tps = 
 				new ThinPlateR2LogRSplineKernelTransform( ndims, dstPts, srcPts  );
-
-		tps.solve();
 		
 		
 		ThinPlateSplineMapping tpsMap = new ThinPlateSplineMapping( tps );
