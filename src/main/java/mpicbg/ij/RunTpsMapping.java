@@ -13,7 +13,7 @@ import jitk.spline.ThinPlateR2LogRSplineKernelTransform;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import au.com.bytecode.opencsv.CSVReader;
+import com.opencsv.CSVReader;
 
 public class RunTpsMapping {
 
