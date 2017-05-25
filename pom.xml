@@ -97,6 +97,10 @@
 	<properties>
 		<license.licenseName>gpl_v2</license.licenseName>
 		<license.copyrightOwners>Howard Hughes Medical Institute.</license.copyrightOwners>
+
+		<!-- TEMP: until pom-scijava 16.0.0 is released. -->
+		<opencsv.version>3.9</opencsv.version>
+		<jitk-tps.version>2.1.1</jitk-tps.version>
 	</properties>
 
 	<repositories>
@@ -112,8 +116,9 @@
 			<artifactId>jitk-tps</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>au.com.bytecode</groupId>
+			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
+			<version>${opencsv.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mpicbg</groupId>
@@ -126,7 +131,6 @@
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.8</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
