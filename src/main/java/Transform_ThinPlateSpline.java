@@ -11,6 +11,7 @@ import mpicbg.models.NotEnoughDataPointsException;
 import mpicbg.models.Point;
 import mpicbg.models.PointMatch;
 import mpicbg.models.TransformMesh;
+import mpicbg.trakem2.transform.ThinPlateSplineTransform;
 
 /**
  * Smooth image deformation using landmark based deformation by means
@@ -58,7 +59,7 @@ public class Transform_ThinPlateSpline extends InteractiveMapping
 	final protected void updateMapping() throws NotEnoughDataPointsException, IllDefinedDataPointsException
 	{
 		tps = new ThinPlateR2LogRSplineKernelTransform( nD, sourceLandmarks, targetLandmarks  );
-		mesh.init( tps );
+		mesh.init( new ThinPlateSplineTransform( tps ));
 		updateIllustration();
 	}
 
