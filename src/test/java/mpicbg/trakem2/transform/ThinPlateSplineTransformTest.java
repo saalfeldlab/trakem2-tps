@@ -26,7 +26,7 @@ import org.junit.Test;
 /**
  *
  *
- * @author Stephan Saalfeld <saalfelds@janelia.hhmi.org>
+ * @author Stephan Saalfeld &lt;saalfelds@janelia.hhmi.org&gt;
  */
 public class ThinPlateSplineTransformTest extends ThinPlateSplineTransform {
 

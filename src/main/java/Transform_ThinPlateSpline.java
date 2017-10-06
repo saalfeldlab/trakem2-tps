@@ -18,8 +18,8 @@ import mpicbg.trakem2.transform.ThinPlateSplineTransform;
  * of Thin Plate Spline inspired by the implementation of Kitware (ITK).
  *
  *
- * @author John Bogovic <bogovicj@janelia.hhmi.org>
- * @author Stephan Saalfeld <saalfeld@mpi-cbg.de>
+ * @author John Bogovic &lt;bogovicj@janelia.hhmi.org&gt;
+ * @author Stephan Saalfeld &lt;saalfelds@janelia.hhmi.org&gt;
  * @version 0.2b
  */
 public class Transform_ThinPlateSpline extends InteractiveMapping
