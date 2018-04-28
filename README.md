@@ -1,3 +1,5 @@
+[![](https://travis-ci.org/saalfeldlab/trakem2-tps.svg?branch=master)](https://travis-ci.org/saalfeldlab/trakem2-tps)
+
 trakem2-tps
 ===========
 
