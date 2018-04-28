@@ -10,7 +10,7 @@
 
 	<groupId>sc.fiji</groupId>
 	<artifactId>trakem2_tps</artifactId>
-	<version>1.1.4-SNAPSHOT</version>
+	<version>1.1.5-SNAPSHOT</version>
 
 	<name>TrakEM2 thin plate splines</name>
 	<description>Thin plate splines in TrakEM2.</description>
